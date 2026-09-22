@@ -5,4 +5,4 @@
 - [x] Dashboard et graphiques
 - [x] Workflows Service Client, Devis, Stock et Achats
 - [x] Analytics, Configuration, Notifications, Activité et Paramètres
-- [ ] Vérification desktop/mobile et interactions
+- [x] Vérification desktop/mobile et interactions
