@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AchatsRouteImport } from './routes/achats'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DevisCommandesRouteImport } from './routes/devis-commandes'
 import { Route as ServiceClientRouteImport } from './routes/service-client'
+import { Route as StockRouteImport } from './routes/stock'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AchatsRoute = AchatsRouteImport.update({
+  id: '/achats',
+  path: '/achats',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -34,39 +41,71 @@ const ServiceClientRoute = ServiceClientRouteImport.update({
   path: '/service-client',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StockRoute = StockRouteImport.update({
+  id: '/stock',
+  path: '/stock',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/achats': typeof AchatsRoute
   '/dashboard': typeof DashboardRoute
   '/devis-commandes': typeof DevisCommandesRoute
   '/service-client': typeof ServiceClientRoute
+  '/stock': typeof StockRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/achats': typeof AchatsRoute
   '/dashboard': typeof DashboardRoute
   '/devis-commandes': typeof DevisCommandesRoute
   '/service-client': typeof ServiceClientRoute
+  '/stock': typeof StockRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/achats': typeof AchatsRoute
   '/dashboard': typeof DashboardRoute
   '/devis-commandes': typeof DevisCommandesRoute
   '/service-client': typeof ServiceClientRoute
+  '/stock': typeof StockRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/devis-commandes' | '/service-client'
+  fullPaths:
+    | '/'
+    | '/achats'
+    | '/dashboard'
+    | '/devis-commandes'
+    | '/service-client'
+    | '/stock'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/devis-commandes' | '/service-client'
-  id: '__root__' | '/' | '/dashboard' | '/devis-commandes' | '/service-client'
+  to:
+    | '/'
+    | '/achats'
+    | '/dashboard'
+    | '/devis-commandes'
+    | '/service-client'
+    | '/stock'
+  id:
+    | '__root__'
+    | '/'
+    | '/achats'
+    | '/dashboard'
+    | '/devis-commandes'
+    | '/service-client'
+    | '/stock'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AchatsRoute: typeof AchatsRoute
   DashboardRoute: typeof DashboardRoute
   DevisCommandesRoute: typeof DevisCommandesRoute
   ServiceClientRoute: typeof ServiceClientRoute
+  StockRoute: typeof StockRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/achats': {
+      id: '/achats'
+      path: '/achats'
+      fullPath: '/achats'
+      preLoaderRoute: typeof AchatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -99,14 +145,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiceClientRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stock': {
+      id: '/stock'
+      path: '/stock'
+      fullPath: '/stock'
+      preLoaderRoute: typeof StockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AchatsRoute: AchatsRoute,
   DashboardRoute: DashboardRoute,
   DevisCommandesRoute: DevisCommandesRoute,
   ServiceClientRoute: ServiceClientRoute,
+  StockRoute: StockRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
