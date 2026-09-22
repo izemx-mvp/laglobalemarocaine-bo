@@ -13,9 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AchatsRouteImport } from './routes/achats'
 import { Route as ActiviteRouteImport } from './routes/activite'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as ConfigurationRouteImport } from './routes/configuration'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DevisCommandesRouteImport } from './routes/devis-commandes'
 import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as ParametresRouteImport } from './routes/parametres'
 import { Route as ServiceClientRouteImport } from './routes/service-client'
 import { Route as StockRouteImport } from './routes/stock'
 
@@ -39,6 +41,11 @@ const AnalyticsRoute = AnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfigurationRoute = ConfigurationRouteImport.update({
+  id: '/configuration',
+  path: '/configuration',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -52,6 +59,11 @@ const DevisCommandesRoute = DevisCommandesRouteImport.update({
 const NotificationsRoute = NotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParametresRoute = ParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiceClientRoute = ServiceClientRouteImport.update({
@@ -70,9 +82,11 @@ export interface FileRoutesByFullPath {
   '/achats': typeof AchatsRoute
   '/activite': typeof ActiviteRoute
   '/analytics': typeof AnalyticsRoute
+  '/configuration': typeof ConfigurationRoute
   '/dashboard': typeof DashboardRoute
   '/devis-commandes': typeof DevisCommandesRoute
   '/notifications': typeof NotificationsRoute
+  '/parametres': typeof ParametresRoute
   '/service-client': typeof ServiceClientRoute
   '/stock': typeof StockRoute
 }
@@ -81,9 +95,11 @@ export interface FileRoutesByTo {
   '/achats': typeof AchatsRoute
   '/activite': typeof ActiviteRoute
   '/analytics': typeof AnalyticsRoute
+  '/configuration': typeof ConfigurationRoute
   '/dashboard': typeof DashboardRoute
   '/devis-commandes': typeof DevisCommandesRoute
   '/notifications': typeof NotificationsRoute
+  '/parametres': typeof ParametresRoute
   '/service-client': typeof ServiceClientRoute
   '/stock': typeof StockRoute
 }
@@ -93,9 +109,11 @@ export interface FileRoutesById {
   '/achats': typeof AchatsRoute
   '/activite': typeof ActiviteRoute
   '/analytics': typeof AnalyticsRoute
+  '/configuration': typeof ConfigurationRoute
   '/dashboard': typeof DashboardRoute
   '/devis-commandes': typeof DevisCommandesRoute
   '/notifications': typeof NotificationsRoute
+  '/parametres': typeof ParametresRoute
   '/service-client': typeof ServiceClientRoute
   '/stock': typeof StockRoute
 }
@@ -106,9 +124,11 @@ export interface FileRouteTypes {
     | '/achats'
     | '/activite'
     | '/analytics'
+    | '/configuration'
     | '/dashboard'
     | '/devis-commandes'
     | '/notifications'
+    | '/parametres'
     | '/service-client'
     | '/stock'
   fileRoutesByTo: FileRoutesByTo
@@ -117,9 +137,11 @@ export interface FileRouteTypes {
     | '/achats'
     | '/activite'
     | '/analytics'
+    | '/configuration'
     | '/dashboard'
     | '/devis-commandes'
     | '/notifications'
+    | '/parametres'
     | '/service-client'
     | '/stock'
   id:
@@ -128,9 +150,11 @@ export interface FileRouteTypes {
     | '/achats'
     | '/activite'
     | '/analytics'
+    | '/configuration'
     | '/dashboard'
     | '/devis-commandes'
     | '/notifications'
+    | '/parametres'
     | '/service-client'
     | '/stock'
   fileRoutesById: FileRoutesById
@@ -140,9 +164,11 @@ export interface RootRouteChildren {
   AchatsRoute: typeof AchatsRoute
   ActiviteRoute: typeof ActiviteRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  ConfigurationRoute: typeof ConfigurationRoute
   DashboardRoute: typeof DashboardRoute
   DevisCommandesRoute: typeof DevisCommandesRoute
   NotificationsRoute: typeof NotificationsRoute
+  ParametresRoute: typeof ParametresRoute
   ServiceClientRoute: typeof ServiceClientRoute
   StockRoute: typeof StockRoute
 }
@@ -177,6 +203,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/configuration': {
+      id: '/configuration'
+      path: '/configuration'
+      fullPath: '/configuration'
+      preLoaderRoute: typeof ConfigurationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -196,6 +229,13 @@ declare module '@tanstack/react-router' {
       path: '/notifications'
       fullPath: '/notifications'
       preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parametres': {
+      id: '/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof ParametresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/service-client': {
@@ -220,9 +260,11 @@ const rootRouteChildren: RootRouteChildren = {
   AchatsRoute: AchatsRoute,
   ActiviteRoute: ActiviteRoute,
   AnalyticsRoute: AnalyticsRoute,
+  ConfigurationRoute: ConfigurationRoute,
   DashboardRoute: DashboardRoute,
   DevisCommandesRoute: DevisCommandesRoute,
   NotificationsRoute: NotificationsRoute,
+  ParametresRoute: ParametresRoute,
   ServiceClientRoute: ServiceClientRoute,
   StockRoute: StockRoute,
 }
