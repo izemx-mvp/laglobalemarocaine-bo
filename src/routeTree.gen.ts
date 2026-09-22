@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DevisCommandesRouteImport } from './routes/devis-commandes'
 import { Route as ServiceClientRouteImport } from './routes/service-client'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DevisCommandesRoute = DevisCommandesRouteImport.update({
+  id: '/devis-commandes',
+  path: '/devis-commandes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiceClientRoute = ServiceClientRouteImport.update({
   id: '/service-client',
   path: '/service-client',
@@ -32,30 +38,34 @@ const ServiceClientRoute = ServiceClientRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/devis-commandes': typeof DevisCommandesRoute
   '/service-client': typeof ServiceClientRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/devis-commandes': typeof DevisCommandesRoute
   '/service-client': typeof ServiceClientRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/devis-commandes': typeof DevisCommandesRoute
   '/service-client': typeof ServiceClientRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/service-client'
+  fullPaths: '/' | '/dashboard' | '/devis-commandes' | '/service-client'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/service-client'
-  id: '__root__' | '/' | '/dashboard' | '/service-client'
+  to: '/' | '/dashboard' | '/devis-commandes' | '/service-client'
+  id: '__root__' | '/' | '/dashboard' | '/devis-commandes' | '/service-client'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  DevisCommandesRoute: typeof DevisCommandesRoute
   ServiceClientRoute: typeof ServiceClientRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/devis-commandes': {
+      id: '/devis-commandes'
+      path: '/devis-commandes'
+      fullPath: '/devis-commandes'
+      preLoaderRoute: typeof DevisCommandesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/service-client': {
       id: '/service-client'
       path: '/service-client'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  DevisCommandesRoute: DevisCommandesRoute,
   ServiceClientRoute: ServiceClientRoute,
 }
 export const routeTree = rootRouteImport
