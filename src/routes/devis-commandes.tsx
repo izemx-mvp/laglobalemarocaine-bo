@@ -12,8 +12,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import logoAsset from "@/assets/logo-la-globale-marocaine.png.asset.json";
-
 export const Route = createFileRoute("/devis-commandes")({
   head: () => head("Devis & Commandes", "Workflow complet : demande client, devis, validation et commande."),
   component: Page,
@@ -52,7 +50,7 @@ function QuotePreview({ q }: { q: Any }) {
     <div className="rounded-md border bg-card p-5 text-xs">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <img src={logoAsset.url} alt="La Globale Marocaine" className="h-11 w-11 object-contain" />
+          <img src="/logo-la-globale-marocaine.png" alt="La Globale Marocaine" className="h-11 w-11 object-contain" />
           <div><b className="text-sm">LA GLOBALE MAROCAINE</b><p className="text-[10px] text-muted-foreground">Emballages plastiques industriels</p></div>
         </div>
         <div className="text-right"><h3 className="text-base font-extrabold">DEVIS</h3><p className="font-mono text-[11px] text-primary">{q.id}</p><StatusBadge tone={quoteTone(q.status) as any}>{q.status}</StatusBadge></div>
