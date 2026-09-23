@@ -19,7 +19,7 @@ export const Route = createFileRoute("/devis-commandes")({
   component: Page,
 });
 
-type Any = Record<string, any>;
+type Any = any;
 
 const quoteTone = (s: string) => s === "Validé" ? "success" : s === "Refusé" || s === "Expiré" ? "danger" : s === "En attente" || s === "En validation" ? "warning" : s === "Envoyé au client" ? "info" : "neutral";
 const orderTone = (s: string) => s === "Livrée" || s === "Confirmée" ? "success" : s === "Annulée" ? "danger" : s === "À valider" || s === "Nouvelle" ? "warning" : "info";
