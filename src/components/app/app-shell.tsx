@@ -9,7 +9,7 @@ import { clients, orders, quotes, suppliers, materials, documents, conversations
 import logoAsset from "@/assets/logo-la-globale-marocaine.png.asset.json";
 
 const nav = [
-  ["/dashboard","Dashboard",LayoutDashboard],["/service-client","Service Client",Headphones],["/devis-commandes","Devis & Commandes",FileText],["/stock","Stock & Matières",Boxes],["/achats","Fournisseurs & Achats",Truck],["/analytics","Analytics & Reporting",ChartNoAxesCombined],["/configuration","Configuration",Settings2],["/notifications","Notifications",Bell],["/activite","Activité",History],["/parametres","Paramètres",SlidersHorizontal],
+  ["/dashboard","Dashboard",LayoutDashboard],["/service-client","Service Client",Headphones],["/devis-commandes","Devis & Commandes",FileText],["/stock","Stock & Matières",Boxes],["/achats","Fournisseurs & Achats",Truck],["/analytics","Analytics & Reporting",ChartNoAxesCombined],["/configuration","Configuration",Settings2],["/parametres","Paramètres",SlidersHorizontal],
 ] as const;
 
 export function AppShell({children,title,subtitle}:{children:ReactNode;title:string;subtitle?:string}) {
