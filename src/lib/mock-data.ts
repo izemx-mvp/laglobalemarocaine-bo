@@ -4,9 +4,88 @@ export const clients = ["Atlas Packaging","AgroMaroc","Seafood Export","GreenFar
 
 export const conversations = Array.from({length:30},(_,i)=>({id:i+1,client:clients[i%clients.length].name,company:clients[i%clients.length].name,message:["Bonjour, quel est le délai pour 5 000 sacs personnalisés ?","Pouvez-vous me transmettre le devis actualisé ?","La commande sera-t-elle livrée cette semaine ?","Nous souhaitons modifier les dimensions du sachet."][i%4],time:`${String(9+(i%9)).padStart(2,"0")}:${i%2?"15":"40"}`,unread:i%4===0?2:0,status:i%5===0?"Résolue":i%3===0?"En attente":"En cours",priority:i%7===0?"Haute":"Normale"}));
 
-export const orders = Array.from({length:30},(_,i)=>({id:`CMD-2026-${String(i+21).padStart(3,"0")}`,client:clients[i%clients.length].name,product:["Sachet PE transparent","Sac personnalisé","Film étirable","Housse industrielle","Gaine PE"][(i+1)%5],qty:2500+(i%8)*1500,amount:8200+i*970,date:`${String(2+(i%25)).padStart(2,"0")}/09/2026`,delivery:`${String(5+(i%23)).padStart(2,"0")}/10/2026`,status:["Nouvelle","À valider","Confirmée","En production","Expédiée","Livrée"][i%6],source:i%3===0?"WhatsApp":"Commercial"}));
+export const salesReps = ["Yassine Amrani","Salma Idrissi","Mehdi Alaoui","Nadia Benjelloun"];
 
-export const quotes = Array.from({length:25},(_,i)=>({id:`DEV-2026-${String(i+1).padStart(3,"0")}`,client:clients[i%clients.length].name,product:["Sachet PE","Film PEBD","Sac imprimé","Gaine plastique"][i%4],qty:5000+(i%6)*2500,unitPrice:1.72+(i%5)*.09,total:10900+i*1240,date:`${String(1+(i%25)).padStart(2,"0")}/09/2026`,status:["Brouillon","En attente","Validé","Envoyé"][i%4],source:i%2?"Email":"WhatsApp"}));
+export const productCatalog = [
+ {name:"Sachet PE transparent",ref:"PRD-SAC-001",material:"Film PE basse densité",dims:"40 × 60 cm — 80 μ",price:1.88},
+ {name:"Sac personnalisé imprimé",ref:"PRD-SAC-002",material:"Granulé PEBD recyclé",dims:"30 × 50 cm — 60 μ",price:2.35},
+ {name:"Film étirable industriel",ref:"PRD-FIL-003",material:"Film BOPP",dims:"120 cm × 300 m",price:14.6},
+ {name:"Housse industrielle",ref:"PRD-HOU-004",material:"Granulé PEHD naturel",dims:"180 × 120 cm",price:6.4},
+ {name:"Gaine PE",ref:"PRD-GAI-005",material:"Granulé PP",dims:"80 cm — 100 μ",price:3.1},
+];
+
+const requestStatuses = ["Nouvelle","En analyse","Devis en préparation","Devis envoyé","Traitée"];
+
+export const requests = Array.from({length:24},(_,i)=>{
+ const c=clients[i%clients.length]; const p=productCatalog[i%productCatalog.length];
+ return {
+  id:`REQ-2026-${String(i+21).padStart(3,"0")}`,
+  client:c.contact, company:c.name, email:c.email, phone:c.phone,
+  product:p.name, ref:p.ref, qty:2500+(i%8)*2500, dimensions:p.dims, material:p.material,
+  customization:i%3===0?"Impression 2 couleurs — logo client":i%3===1?"Impression 4 couleurs recto":"Sans impression",
+  date:`${String(1+(i%22)).padStart(2,"0")}/09/2026`,
+  desired:`${String(5+(i%20)).padStart(2,"0")}/10/2026`,
+  source:["WhatsApp","Email","Téléphone","Commercial"][i%4],
+  status:requestStatuses[i%5],
+  message:`Bonjour, nous souhaitons un chiffrage pour ${(2500+(i%8)*2500).toLocaleString("fr-FR")} unités de ${p.name.toLowerCase()} (${p.dims}). Merci de préciser le délai et les conditions de règlement.`,
+  notes:i%2===0?"Client fidèle — appliquer la grille tarifaire négociée.":"Vérifier la disponibilité matière avant engagement de délai.",
+  attachments:i%4===0?["Cahier des charges.pdf"]:i%4===2?["Visuel impression.png"]:[],
+ };
+});
+
+const quoteStatuses = ["Brouillon","En validation","Envoyé au client","En attente","Validé","Refusé","Expiré"];
+
+export const quotes = requests.filter((_,i)=>i%4!==0).map((r,i)=>{
+ const p=productCatalog.find(x=>x.name===r.product)??productCatalog[0];
+ const unitPrice=+(p.price*(1-(i%3)*.03)).toFixed(2);
+ const discount=(i%4)*2;
+ const totalHt=Math.round(unitPrice*r.qty*(1-discount/100));
+ return {
+  id:`DEV-2026-${String(i+1).padStart(3,"0")}`, requestId:r.id, client:r.company, contact:r.client,
+  product:r.product, ref:r.ref, qty:r.qty, unitPrice, discount, tva:20, totalHt, total:Math.round(totalHt*1.2),
+  date:r.date, validity:"30 jours", validUntil:`${String(1+(i%20)).padStart(2,"0")}/10/2026`,
+  delay:`${5+(i%6)} jours ouvrables`,
+  payment:["30% à la commande, solde à 30 jours","Virement à 45 jours fin de mois","Règlement comptant à la livraison"][i%3],
+  conditions:"Prix HT départ usine Casablanca. Tolérance quantité ±3%. BAT à valider avant production.",
+  status:quoteStatuses[i%7], source:r.source, rep:salesReps[i%4],
+  scenario:`Scénario ${1+(i%3)} — ${["Équilibré","Volume","Délai court"][i%3]}`,
+ };
+});
+
+const orderStatuses = ["Nouvelle","À valider","Confirmée","En production","Expédiée","Livrée","Annulée"];
+
+export const orders = [
+ ...quotes.filter((_,i)=>i%2===0).map((q,i)=>({
+  id:`CMD-2026-${String(i+21).padStart(3,"0")}`, quoteId:q.id, requestId:q.requestId, client:q.client, contact:q.contact,
+  product:q.product, qty:q.qty, unitPrice:q.unitPrice, amount:q.total,
+  date:`${String(2+(i%25)).padStart(2,"0")}/09/2026`, delivery:`${String(5+(i%23)).padStart(2,"0")}/10/2026`,
+  payment:q.payment, status:orderStatuses[i%7], source:q.source,
+ })),
+ ...Array.from({length:12},(_,i)=>{
+  const c=clients[(i+5)%clients.length]; const p=productCatalog[(i+1)%productCatalog.length];
+  return {id:`CMD-2026-${String(i+31).padStart(3,"0")}`, quoteId:"—", requestId:"—", client:c.name, contact:c.contact,
+   product:p.name, qty:2500+(i%8)*1500, unitPrice:p.price, amount:8200+i*970,
+   date:`${String(2+(i%25)).padStart(2,"0")}/09/2026`, delivery:`${String(6+(i%20)).padStart(2,"0")}/10/2026`,
+   payment:"Virement à 45 jours fin de mois", status:orderStatuses[(i+3)%7], source:i%3===0?"WhatsApp":"Commercial"};
+ }),
+];
+
+export const quoteScenarios = (r:{product:string;qty:number}) => {
+ const p=productCatalog.find(x=>x.name===r.product)??productCatalog[0];
+ return [0,1,2].map(j=>{
+  const unitPrice=+(p.price*[1,.94,1.08][j]).toFixed(2);
+  return {
+   id:`SCN-${j+1}`, label:["Scénario 1 — Équilibré","Scénario 2 — Volume","Scénario 3 — Délai court"][j],
+   product:p.name, qty:r.qty, unitPrice, total:Math.round(unitPrice*r.qty),
+   delay:[`${6} jours ouvrables`,"9 jours ouvrables","4 jours ouvrables"][j],
+   payment:["30% à la commande, solde à 30 jours","Virement à 45 jours fin de mois","Règlement comptant à la livraison"][j],
+   margin:[24,19,28][j], similarity:[92,86,79][j], validity:"30 jours", discount:[0,4,0][j], tva:20,
+   conditions:"Prix HT départ usine Casablanca. Tolérance quantité ±3%.",
+   reason:["Meilleur équilibre entre marge, délai et historique tarifaire du client.","Remise volume appliquée, marge réduite mais délai allongé de 3 jours.","Production prioritaire, coût majoré pour respecter un délai court."][j],
+   recommended:j===0,
+  };
+ });
+};
 
 export const materials = ["Film PE basse densité","Granulé PEHD naturel","Granulé PEBD recyclé","Masterbatch blanc","Masterbatch bleu","Additif anti-UV","Encre flexographique","Solvant industriel","Mandrin carton","Film BOPP","Granulé PP","Colle lamination","Pigment vert","Résine EVA","Agent glissant"].map((name,i)=>({ref:`MP-${String(i+1).padStart(3,"0")}`,name,category:i<10?"Matière première":"Consommable",current:[450,2400,0,780,320,95,640,180,1200,870,1560,210,430,510,75][i],min:[500,800,400,300,250,120,200,150,500,400,700,180,200,250,100][i],max:3000,unit:i===5||i===14?"L":"kg",updated:"Aujourd’hui, 14:32"}));
 
