@@ -1,11 +1,11 @@
 # Roadmap — Refinement premium vert
-- [ ] Remplacer toute l’identité bleue par la palette verte La Globale Marocaine et intégrer le logo fourni
-- [ ] Simplifier les titres métiers et nettoyer la sidebar
-- [ ] Remplacer tous les KPI décoratifs par des mini-graphiques cohérents
-- [ ] Créer une table réutilisable avec tri, filtres, pagination et actions
-- [ ] Repenser Service Client avec panneau WhatsApp large et fiche client interactive
-- [ ] Enrichir toutes les vues Stock avec données, filtres, historique, alertes et prévision IA
-- [ ] Enrichir Fournisseurs & Achats avec analyses, scénarios, BDC et historique interconnectés
-- [ ] Rendre les graphiques Dashboard dépendants de la période
-- [ ] Mettre à niveau les autres tables et vues sans retirer les interactions existantes
-- [ ] Vérifier toutes les pages sur desktop et mobile, sans bleu ni titre « Agent IA »
+- [x] Remplacer toute l’identité bleue par la palette verte La Globale Marocaine et intégrer le logo fourni
+- [x] Simplifier les titres métiers et nettoyer la sidebar
+- [x] Remplacer tous les KPI décoratifs par des mini-graphiques cohérents
+- [x] Créer une table réutilisable avec tri, filtres, pagination et actions
+- [x] Repenser Service Client avec panneau WhatsApp large et fiche client interactive
+- [x] Enrichir toutes les vues Stock avec données, filtres, historique, alertes et prévision IA
+- [x] Enrichir Fournisseurs & Achats avec analyses, scénarios, BDC et historique interconnectés
+- [x] Rendre les graphiques Dashboard dépendants de la période
+- [x] Mettre à niveau les autres tables et vues sans retirer les interactions existantes
+- [x] Vérifier toutes les pages sur desktop et mobile, sans bleu ni titre « Agent IA »
