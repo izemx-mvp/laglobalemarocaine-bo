@@ -1,8 +1,11 @@
-# Roadmap
-- [x] Design system industriel
-- [x] Données mock interconnectées
-- [x] Navigation, authentification simulée et recherche globale
-- [x] Dashboard et graphiques
-- [x] Workflows Service Client, Devis, Stock et Achats
-- [x] Analytics, Configuration, Notifications, Activité et Paramètres
-- [x] Vérification desktop/mobile et interactions
+# Roadmap — Refinement premium vert
+- [ ] Remplacer toute l’identité bleue par la palette verte La Globale Marocaine et intégrer le logo fourni
+- [ ] Simplifier les titres métiers et nettoyer la sidebar
+- [ ] Remplacer tous les KPI décoratifs par des mini-graphiques cohérents
+- [ ] Créer une table réutilisable avec tri, filtres, pagination et actions
+- [ ] Repenser Service Client avec panneau WhatsApp large et fiche client interactive
+- [ ] Enrichir toutes les vues Stock avec données, filtres, historique, alertes et prévision IA
+- [ ] Enrichir Fournisseurs & Achats avec analyses, scénarios, BDC et historique interconnectés
+- [ ] Rendre les graphiques Dashboard dépendants de la période
+- [ ] Mettre à niveau les autres tables et vues sans retirer les interactions existantes
+- [ ] Vérifier toutes les pages sur desktop et mobile, sans bleu ni titre « Agent IA »
