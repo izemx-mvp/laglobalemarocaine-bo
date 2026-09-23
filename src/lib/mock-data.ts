@@ -23,3 +23,31 @@ export const faqs = Array.from({length:20},(_,i)=>({id:i+1,question:["Quels sont
 export const chartData = [
  {m:"Avr",commandes:54,ca:680,stock:89,demandes:106},{m:"Mai",commandes:62,ca:735,stock:82,demandes:118},{m:"Juin",commandes:58,ca:710,stock:76,demandes:130},{m:"Juil",commandes:71,ca:840,stock:72,demandes:142},{m:"Août",commandes:68,ca:805,stock:69,demandes:136},{m:"Sep",commandes:86,ca:960,stock:74,demandes:168},
 ];
+
+export const finishedProducts = [
+ {ref:"PF-SAC-4060",name:"Sac PE 40×60 transparent",category:"Sacs industriels",available:12800,reserved:6500,min:5000,orders:4,status:"Normal",updated:"22/09/2026 · 15:10"},
+ {ref:"PF-SAC-3050",name:"Sac PE 30×50 imprimé",category:"Sacs personnalisés",available:3200,reserved:2800,min:3500,orders:6,status:"Faible",updated:"22/09/2026 · 14:48"},
+ {ref:"PF-FIL-120",name:"Film étirable 120 cm",category:"Films",available:0,reserved:1200,min:2000,orders:3,status:"Rupture",updated:"22/09/2026 · 13:20"},
+ {ref:"PF-GAI-080",name:"Gaine PEBD 80 cm",category:"Gaines",available:7400,reserved:2100,min:3000,orders:2,status:"Normal",updated:"22/09/2026 · 11:42"},
+ {ref:"PF-HOU-180",name:"Housse industrielle 180×120",category:"Housses",available:1550,reserved:900,min:1200,orders:5,status:"Faible",updated:"21/09/2026 · 17:25"},
+ {ref:"PF-SAC-BIO",name:"Sac PE recyclé BioTerra",category:"Sacs personnalisés",available:8900,reserved:4000,min:3000,orders:3,status:"Normal",updated:"21/09/2026 · 15:05"},
+ {ref:"PF-FIL-050",name:"Film rétractable 50 μ",category:"Films",available:4600,reserved:3100,min:2500,orders:7,status:"Normal",updated:"20/09/2026 · 16:18"},
+ {ref:"PF-SAC-6080",name:"Sac renforcé 60×80",category:"Sacs industriels",available:980,reserved:600,min:1500,orders:2,status:"Critique",updated:"20/09/2026 · 10:12"},
+];
+
+export const stockHistory = Array.from({length:24},(_,i)=>({date:`${String(22-(i%18)).padStart(2,"0")}/09/2026 · ${String(8+(i%9)).padStart(2,"0")}:${i%2?"15":"40"}`,ref:materials[i%materials.length].ref,material:materials[i%materials.length].name,type:["Entrée de stock","Sortie de stock","Ajustement","Inventaire","Alerte déclenchée","Seuil modifié"][i%6],qty:[2500,-850,120,0,0,0][i%6],user:["Yassine Amrani","Salma Idrissi","Agent Stock","Admin"][i%4],comment:["Réception fournisseur contrôlée","Affectation production CMD-2026-041","Correction après comptage","Inventaire hebdomadaire validé","Seuil minimum atteint","Paramètre ajusté selon consommation"][i%6]}));
+
+export const purchaseOrders = Array.from({length:15},(_,i)=>({id:`BDC-2026-${String(i+1).padStart(3,"0")}`,supplier:suppliers[i%suppliers.length].name,material:materials[i%materials.length].name,qty:1500+(i%6)*750,amount:18200+i*2450,date:`${String(2+(i%20)).padStart(2,"0")}/09/2026`,delivery:`${String(24+(i%6)).padStart(2,"0")}/09/2026`,status:["Brouillon","À valider","Validé","Envoyé","Confirmé","Partiellement livré","Livré","Annulé"][i%8]}));
+
+export const purchaseHistory = Array.from({length:20},(_,i)=>({date:`${String(22-(i%18)).padStart(2,"0")}/09/2026 · ${String(9+(i%8)).padStart(2,"0")}:${i%2?"20":"45"}`,action:["Scénario fournisseur créé","Scénario modifié","Fournisseur sélectionné","BDC généré","BDC validé","BDC envoyé","Fournisseur confirmé","Livraison reçue","Prix mis à jour"][i%9],actor:["Agent Achats","Yassine Amrani","Admin"][i%3],supplier:suppliers[i%suppliers.length].name,reference:i%3===0?`SC-2026-${String(14+i).padStart(3,"0")}`:`BDC-2026-${String(1+i%15).padStart(3,"0")}`,status:["Succès","Validé","Envoyé","Confirmé"][i%4]}));
+
+export const purchaseScenarios = [0,1,2].map((i)=>({id:`SC-2026-${14+i}`,material:materials[i].name,qty:5000-i*750,created:`${20+i}/09/2026`,options:suppliers.filter(s=>s.material===materials[i].name||i===0).slice(0,3).map((s,j)=>({...s,total:Math.round((5000-i*750)*s.price),score:96-j*4,reason:j===0?"Meilleur équilibre entre coût, délai et fiabilité historique.":j===1?"Prix compétitif avec délai compatible avec la production.":"Fiabilité élevée, recommandée pour sécuriser la continuité."}))}));
+
+export const conversationMessages = (client:string) => [
+ {side:"client",text:`Bonjour, je souhaite obtenir vos conditions pour une nouvelle commande chez ${client}.`,time:"09:42"},
+ {side:"company",text:"Bonjour, merci pour votre demande. Pouvez-vous préciser le produit et la quantité souhaitée ?",time:"09:45"},
+ {side:"client",text:"Nous avons besoin de 5 000 sacs PE 40×60 cm, imprimés en deux couleurs.",time:"09:51"},
+ {side:"ai",text:"D’après vos commandes précédentes, le PE basse densité 80 microns correspond à cette utilisation. Le délai estimé est de 5 à 7 jours ouvrables après validation du BAT.",time:"09:53",confidence:94},
+ {side:"client",text:"Très bien. Pouvez-vous aussi confirmer la livraison sur Casablanca avant la fin du mois ?",time:"10:02"},
+ {side:"company",text:"Oui, la capacité actuelle permet une livraison le 29 septembre. Nous préparons le devis détaillé.",time:"10:06"},
+];
